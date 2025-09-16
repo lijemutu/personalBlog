@@ -1,9 +1,11 @@
 ---
-title: "Hey, I am John Doe!"
+title: "About — Lijemutu"
 meta_title: "About"
-description: "this is meta description"
+description: "Lijemutu — software engineer (BSc Physics). Business ideas, technical articles, and personal projects."
 image: "/images/avatar.png"
 draft: false
 ---
 
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis illum nesciunt commodi vel nisi ut alias excepturi ipsum, totam, labore tempora, odit ex iste tempore sed. Fugit voluptatibus perspiciatis assumenda nulla ad nihil, omnis vel, doloremque sit quam autem optio maiores, illum eius facilis et quo consectetur provident dolor similique! Enim voluptatem dicta expedita veritatis repellat dolorum impedit, provident quasi at.
+I am a software engineer with a background in physics (BSc). This space hosts my technical essays, business ideas I'm exploring, and progress updates on personal projects I build. I write to make my thinking public, attract collaborators and clients, and document lessons learned.
+
+If you'd like to work together or discuss an idea, use the contact page or find me on GitHub and LinkedIn.
