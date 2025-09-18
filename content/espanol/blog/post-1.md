@@ -1,25 +1,35 @@
 ---
-title: "Haciendo realidad una idea: plantilla corta de proyecto"
-meta_title: "Plantilla y checklist de proyecto"
-description: "Una lista breve y notas que uso al iniciar un nuevo proyecto — ingeniería, despliegue y pasos rápidos de validación."
-date: 2025-09-16T12:00:00Z
-image: "/images/image-placeholder.png"
+title: "Documentando con un generador de sitios estáticos"
+meta_title: "Uso de generador de sitios estáticos para un blog"
+description: "Un blog dónde se documenta el uso de un generador de sitios estaticos y archivos tipo markdown para publicar de forma fácil en github pages"
+date: 2025-09-17T12:00:00Z
+image: ""
 categories: ["Proyectos", "Ingeniería"]
-author: "Lijemutu"
-tags: ["proyecto","ingeniería","startup"]
+author: "Erick López"
+tags: ["proyecto","jamstack","blog", "hugo"]
 draft: false
 ---
 
-Esta es una nota inicial que mantengo para nuevos proyectos. Enumera los pasos rápidos que sigo para mover una idea desde el concepto hasta un producto mínimo y testeable.
+# Introducción
+Este proyecto es mi tercera iteración del uso de Generadores de Sitios Estáticos (SSG static site generator). Estos sitios son construidos con un framework y el contenido es basado en plantillas con archivos markdown (.md) lo cual tiene una gran flexibilidad al crear contenido escrito (títulos, substitulos, listas, imágenes etc.)
 
-1. Define el problema y la métrica de éxito.
-2. Redacta un plan de una página y la experiencia de usuario más pequeña posible para validar la idea.
-3. Construye un prototipo mínimo usando una tecnología conocida (iteración rápida sobre arquitectura perfecta).
-4. Despliega rápidamente en una URL pública, mide el comportamiento y repite.
+En previos proyectos encontré la simplicidad de generar archivos html, al no necesitar un servicio no se necesita un hosting.
 
-Notas:
-- Mantén el alcance pequeño. 1–2 flujos principales son suficientes para la primera prueba.
-- Automatiza la construcción y el despliegue (CI/CD) para reducir fricción.
-- Rastrea una sola métrica importante (tasa de registro, clics a conversión, engagement).
+# Developer experience
 
-Uso este sitio para documentar experimentos y mantener un historial público de proyectos que comparto con colaboradores y potenciales clientes.
+Al configurar el ambiente local (proyecto y scripts) y Github pages (2 clicks) el proceso de desarrollar se detiene y empieza la creación de contenido.
+
+## Ambiente local
+
+* Instalar [Hugo](https://gohugo.io/) y sus dependencias (windows 11 en mi caso)
+* Crear proyecto `hugo new site <site-name>` e iniciar el control de versiones `git init`
+* Buscar una [plantilla](https://themes.gohugo.io/) de la lista oficial, agregar como submodulo
+* Personalizar al sitio de acuerdo a tu gusto
+  
+## Github pages
+
+Al publicar tu proyecto en github y tener tu repositorio público en la sección de ajustes se encuentra el menú de Pages, al seleccionar el folder dónde se encuentra el proyecto compilado Github genera una url pública la cual es accesible.
+
+## Creación de contenido
+
+Al crear un nuevo archivo .md en el folder "blog", generar el compilado y realizar commit. El proceso inicia automaticamente y a los pocos minutos se encuentra disponible en la url pública.
