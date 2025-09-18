@@ -1,4 +1,3 @@
-
 ---
 title: "Documenting with a Static Site Generator"
 meta_title: "Using a Static Site Generator for a Blog"
