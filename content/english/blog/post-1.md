@@ -1,25 +1,36 @@
+
 ---
-title: "Making an idea real: a short project template"
-meta_title: "Project template and checklist"
-description: "A short checklist and notes I use when starting a new project — engineering, deployment, and quick validation steps."
-date: 2025-09-16T12:00:00Z
-image: "/images/image-placeholder.png"
+title: "Documenting with a Static Site Generator"
+meta_title: "Using a Static Site Generator for a Blog"
+description: "A blog documenting the use of a static site generator and markdown files to easily publish on GitHub Pages."
+date: 2025-09-17T12:00:00Z
+image: ""
 categories: ["Projects", "Engineering"]
-author: "Lijemutu"
-tags: ["project","engineering","startup"]
+author: "Erick López"
+tags: ["project","jamstack","blog", "hugo"]
 draft: false
 ---
 
-This is a starter note I keep for new projects. It lists the quick steps I follow to move an idea from concept to a minimal, testable product.
+# Introduction
+This project is my third iteration using Static Site Generators (SSG). These sites are built with a framework and the content is based on templates with markdown (.md) files, which offer great flexibility for creating written content (titles, subtitles, lists, images, etc.).
 
-1. Define the problem and success metric.
-2. Draft a 1-page plan and the smallest possible UX to validate the idea.
-3. Build a minimal prototype using a familiar stack (fast iteration over perfect architecture).
-4. Deploy quickly to a public URL, measure behavior, and iterate.
+In previous projects, I found the simplicity of generating HTML files appealing, as no service or hosting is required.
 
-Notes:
-- Keep the scope small. 1–2 core flows are enough for the first test.
-- Automate the build and deployment (CI/CD) to reduce friction.
-- Track a single metric that matters (signup rate, click-to-conversion, engagement).
+# Developer Experience
 
-I use this site to document experiments and keep a public history of projects I share with collaborators and potential customers.
+By setting up the local environment (project and scripts) and GitHub Pages (just 2 clicks), the development process stops and content creation begins.
+
+## Local Environment
+
+* Install [Hugo](https://gohugo.io/) and its dependencies (Windows 11 in my case)
+* Create a project with `hugo new site <site-name>` and initialize version control with `git init`
+* Find an [official theme](https://themes.gohugo.io/) and add it as a submodule
+* Customize the site to your liking
+  
+## GitHub Pages
+
+When you publish your project on GitHub and have your repository public, you can find the Pages menu in the settings section. By selecting the folder where the compiled project is located, GitHub generates a public URL that is accessible.
+
+## Content Creation
+
+Create a new .md file in the "blog" folder, build the site, and commit your changes. The process starts automatically, and within a few minutes, your content is available at the public URL.
