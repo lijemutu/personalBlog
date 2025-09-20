@@ -3,7 +3,7 @@ title: "Documentando con un generador de sitios estáticos"
 meta_title: "Uso de generador de sitios estáticos para un blog"
 description: "Un blog dónde se documenta el uso de un generador de sitios estaticos y archivos tipo markdown para publicar de forma fácil en github pages"
 date: 2025-09-17T12:00:00Z
-image: ""
+image: "/images/hugo/hugo.png"
 categories: ["Proyectos", "Ingeniería"]
 author: "Erick López"
 tags: ["proyecto","jamstack","blog", "hugo"]

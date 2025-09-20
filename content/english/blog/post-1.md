@@ -3,7 +3,7 @@ title: "Documenting with a Static Site Generator"
 meta_title: "Using a Static Site Generator for a Blog"
 description: "A blog documenting the use of a static site generator and markdown files to easily publish on GitHub Pages."
 date: 2025-09-17T12:00:00Z
-image: ""
+image: "/images/hugo/hugo.png"
 categories: ["Projects", "Engineering"]
 author: "Erick López"
 tags: ["project","jamstack","blog", "hugo"]
