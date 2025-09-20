@@ -12,72 +12,76 @@ draft: false
 # ¿Vale la pena tomar la caseta?
 
 ![carretera mexico toluca](/images/notificaciones-carretera/carretera-mexico-toluca-maps.png)
-Al pasar todos los días por la carretera México-Toluca para ir mi lugar de trabajo me pregunto si siempre vale la pena pagar el precio de un tramo de este trayecto. En días que se me hace tarde tomo la autopista sin pensar dos veces, pero para mi sorpresa otros automovilistas tuvieron esa misma idea por lo que la fila de espera en la caseta se vuelve larga. 
 
-Veo el tramo de la libre despejado y ahí pienso que no valió la pena el pago de la caseta. 
+Paso todos los días por la carretera México–Toluca para ir al trabajo y, a menudo, me pregunto si siempre vale la pena pagar la caseta. 
 
-## Primera solución
+Cuando voy con prisa suelo elegir la autopista de cuota, pero no soy el único: muchas veces la fila en la caseta es larga y, al ver la carretera libre despejada, pienso que no valió la pena pagar.
 
-Al ir con mi esposa me puedo anticipar a este escenario al pedirle que revise la carretera desde su aplicación de google maps, esto resulta práctico ya que ambos sabemos que tramo recorremos y discutimos como se ve la carretera antes de tomar la decisión.
+## Primera solución (manual)
 
-Este acercamiento se complica cuando manejo solo a mi lugar de trabajo, al ser peligroso manipular el teléfono o el Android auto de mi carro.
+Cuando voy acompañado pido a mi esposa que revise el estado del tráfico en Google Maps y me diga si conviene tomar la cuota o la libre. Es práctico porque ambos conocemos la ruta y podemos decidir antes de llegar al punto de bifurcación.
 
-## Solución técnica
+Sin embargo, esta solución falla cuando viajo solo: es peligroso manipular el teléfono o Android Auto mientras conduzco.
 
-Al no tener un copiloto todo el tiempo debo buscar obtener esta información de otra forma. Android auto soporta notificaciones de aplicaciones de mensajeria como Whatsapp, telegram, messenger etc. Y es capaz de reproducir estas notificaciones con su propio TTS (Text to speech)
+## Solución técnica propuesta
 
-Estas notificaciones lo vuelve perfecto para recibir un mensaje y reproducirlo para obtener la información.
+Al no contar siempre con un copiloto, busqué una forma automatizada de recibir esa información. Android Auto puede reproducir notificaciones de mensajería mediante TTS (Text To Speech), así que la idea fue recibir un mensaje con la recomendación y que se reprodujera en el auto.
 
-### Definir las rutas y los tiempos
+Para obtener esas notificaciones programadas opté por un prototipo que utiliza Selenium para controlar WhatsApp Web desde una sesión secundaria.
 
-Mi trayecto es bastante regular, mi lugar de trabajo es fijo, trabajo de lunes a viernes con un horario de entrada y salida fijo. Los mensajes que reciba pueden ser programados o agendados los mismos días a la misma hora. 
+Con una SIM y una cuenta adicional puedo iniciar sesión en un navegador que Selenium controle y enviar mensajes a mi número personal con la recomendación ("Toma la libre" / "Toma la cuota").
 
-Primero debo encontrar las rutas en google maps que me interesan, es decir los puntos de decisión cruciales
+### Definir rutas y puntos de decisión
+
+Mi trayecto es bastante regular: trabajo fijo de lunes a viernes y paso por los mismos puntos de decisión. El primer paso fue identificar en Google Maps los puntos donde se separan las rutas y donde convergen nuevamente, de modo que pudiera medir el tiempo de recorrido por cada alternativa.
 
 ![punto de desviación en la carretera con la posibilidad de eligir cuota o libre](/images/notificaciones-carretera/desviacion-carretera.png)
 
-Dónde existe el tramo de entrada y los tramos donde ambos caminos convergen en uno solo. Esto para poder medir el tiempo de recorrido por cada camino.
+Google Maps codifica coordenadas en la URL, lo que facilita definir los segmentos que quiero medir y comparar:
+[https://www.google.com/maps/dir/19.3005883,-99.3786061/19.3903276,-99.2390682/...](https://www.google.com/maps/dir/19.3005883,-99.3786061/19.3903276,-99.2390682/@19.3630724,-99.3662328,12.5z/data=!4m5!4m4!1m1!4e1!1m0!3e0!5m1!1e1?entry=ttu&g_ep=EgoyMDI1MDkxNy4wIKXMDSoASAFQAw%3D%3D)
 
-Al jugar con google maps se pueden buscar estos tramos, los cuales se definen por coordenadas dentro de la Url de google maps
-[https://www.google.com/maps/dir/19.3005883,-99.3786061/19.3903276,-99.2390682/@19.3630724,-99.3662328,12.5z/...](https://www.google.com/maps/dir/19.3005883,-99.3786061/19.3903276,-99.2390682/@19.3630724,-99.3662328,12.5z/data=!4m5!4m4!1m1!4e1!1m0!3e0!5m1!1e1?entry=ttu&g_ep=EgoyMDI1MDkxNy4wIKXMDSoASAFQAw%3D%3D)
+### Reglas y heurística
 
-### Notificaciones
+No quiero calcular minutos al volante: necesito una recomendación simple.
 
-Al ser un proyecto personal no quise usar el uso de plataformas de mensajeria, principalmente por el costo y los registros en las plataformas (si, las plataformas necesitan saber el fin de su plataforma) que pueden tomar algún tiempo para su aprobación.
-
-Soy desarrollador dotnet pero me gusta hacer prototipos en python, he utilizado selenium varias veces para realizar webscraping pero esta vez voy a interactuar con whatsapp web. Para esto es necesario otra cuenta de whatsapp de la cual enviar mensajes a mi número personal.
-
-Con un sim adicional solo necesito iniciar sesión en el navegador y selenium puede interactuar con él.
-
-### Reglas o heurística
-
-Al momento de estar conduciendo no quiero pensar en los minutos que se tarda cada tramo y tomar una decisión al mismo tiempo. solamente necesito un *VETE POR LA LIBRE!!*. Para esto se definen reglas que toman en cuenta el tiempo de traslado y el costo de la caseta (fijo). 
-
-El principio es el siguiente, si me ahorro mas de 20 minutos por la cuota me voy por ahí. 
+Definí una regla sencilla: si la cuota me ahorra más de 20 minutos respecto a la libre, tomar la cuota; si no, ir por la libre. La regla compara tiempo estimado y costo fijo de la caseta.
 
 ![codigo regla](/images/notificaciones-carretera/codigo-regla.png)
+
+### Implementación y notificaciones
+
+Preferí no depender de plataformas de mensajería pagadas por motivos de costo y privacidad. 
+
+Aunque soy desarrollador .NET, para prototipar usé Python y Selenium para automatizar WhatsApp Web y enviar las notificaciones. Guardar la sesión del navegador permite que el bot actúe sin iniciar sesión cada vez.
+
+El flujo es:
+- medir tiempo estimado por las dos rutas usando las APIs de Maps o simulando consultas en la web;
+- aplicar la heurística (diferencia de tiempo vs costo);
+- enviar un mensaje a mi número con la recomendación;
+- Android Auto reproduce la notificación mediante TTS.
+
 ## Experiencia de uso
 
-El sistema de notificaciones me daba la información que necesitaba en el momento que necesitaba
+El sistema me daba la información justo cuando la necesitaba y funcionó bien, aunque no siempre: mantener sesiones de WhatsApp Web automatizadas y un servicio en casa (lo ejecuté en un cluster k3s en una mini-PC) requiere mantenimiento.
+
+Aprendí mucho sobre Selenium, persistencia de sesiones y despliegue en Kubernetes. Fue más trabajo del que esperaba, pero perfecto para aprender.
 
 ![notifiaciones whatsapp](/images/notificaciones-carretera/notificaciones-whatsapp.png)
 
-funcionaba bien... cuando funcionaba...
-
-Aprendí muchisimo del funcionamiento de selenium, guardar sesiones y para darle más sabor metí esto en un cluster de kubernetes (k3s en una mini pc) de la cual voy a hablar despues en mi pequeñisisisisisimo homelab.
-
-fue tal vez demasiado que mantener y arreglar pero era exactamente lo que quería aprender
-
 ## Intento de monetización
 
-Estuve en un grupo de facebook donde se daban reportes de la carretera por los usuarios, de ahí pensé que otras personas podrían tener este mismo problema. Este sistema podría escalar para servir a más usuarios (estimo que máximo 30) y tal vez monetizarlo. Publique un par de veces en los grupos relacionados y obtuve 4 usuarios, incluso cree un speech como si estuvieran participando en la prueba beta de un servicio.
+Probé una versión piloto con usuarios de un grupo de Facebook donde la gente comparte reportes de la carretera. Pensé que otras personas tendrían el mismo problema; estimé que el servicio podría escalar hasta unas 30 personas.
+
+Publiqué la invitación varias veces y conseguí cuatro usuarios para la prueba.
+
+Durante tres semanas envié encuestas periódicas; solo dos personas respondieron.
 
 ![introducción a los usuarios](/images/notificaciones-carretera/intro-usuarios.png)
 
-Cada fin de semana y a la tercera semana les mandé una pequeña encuesta para saber si el servicio era lo que esperaban. Solo dos usuarios respondían las encuestas :c
-
-Al final de tres semanas con la prueba piloto les agradecí y les propuse un monto mensual para continuar con el servicio. 
+Al terminar la prueba agradecí a los participantes y propuse una suscripción mensual, pero nadie aceptó pagar por el servicio.
 
 ## Reflexión
 
-Obviamente no hubo usuarios que querían pagar pero aprendí varias cosas técnicas con kubernetes, que promocionarse en grupos de facebook es muy dificil con este tipo de servicios, que es dificil intentar hacer todo al mismo tiempo y que siempre que me sirva o aprenda algo vale la pena hacer el esfuerzo.
+Aunque no hubo usuarios dispuestos a pagar, el proyecto me dejó mucho aprendizaje: técnicas de automatización con Selenium, administración de sesiones, despliegue en Kubernetes y las dificultades de promocionar un servicio en redes sociales. 
+
+También me recordó que, aunque algo no sea rentable, vale la pena si aprendes y obtienes experiencia práctica.
