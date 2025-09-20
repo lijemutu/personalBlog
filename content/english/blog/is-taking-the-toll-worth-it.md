@@ -2,7 +2,7 @@
 title: "Is taking the toll worth it?"
 meta_title: "A technical and reflective look at whether paying for a toll road is worth the time saved"
 description: "A reflective and technical look at whether paying for a toll road is worth the money compared to the free road"
-date: 2025-09-17T12:00:00Z
+date: 2025-09-19T12:00:00Z
 image: "/images/notificaciones-carretera/carretera-mexico-toluca-maps.png"
 categories: ["Projects", "Engineering"]
 author: "Erick López"
